@@ -1,5 +1,5 @@
 #title {
-        color = orange;
+        color: orange;
 }
 
 #failvideo {
@@ -8,5 +8,5 @@
 
 #lyrics {
         text-align: center;
-        text-weight: bold; 
+        font-weight: bold; 
 }
