@@ -14,7 +14,12 @@
 <div id="lyrics"></div>
 
 <script>
-        // Complete this section and create a CSS file named style.css
+        function setSubtitle() {
+                $("lyrics").update("So far, so good");
+        }
+
+        var fail_video = document.getElementById("failvideo");
+        fail_video.addListener("timeupdate", setSubtitle());
 </script>
 </body>
 </html>
