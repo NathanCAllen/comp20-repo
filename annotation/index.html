@@ -14,15 +14,88 @@
 <div id="lyrics"></div>
 
 <script>
-        function setSubtitle(fail_video, lyrics) {
-                if (fail_video.currentTime >= 9 $$ fail_video.currentTime < 13){
-                        lyrics.innerHTML = "You've got me feelin' emotions";
-                };
-        }
-
         var fail_video = document.getElementById("failvideo");
         var lyrics = document.getElementById("lyrics");
-        fail_video.addListener("timeupdate", setSubtitle(fail_video, lyrics));
+        // lyrics.innerHTML = "You've got me feelin' emotions";
+        fail_video.addEventListener("timeupdate", function()
+        {
+                if (fail_video.currentTime > 9 && fail_video.currentTime < 13){
+                        lyrics.innerHTML = "You've got me feelin' emotions";
+                };
+
+                if (fail_video.currentTime > 13 && fail_video.currentTime < 17){
+                        lyrics.innerHTML = "Deeper than I've ever dreamed of";
+                };
+                
+                if (fail_video.currentTime > 17 && fail_video.currentTime < 21){
+                        lyrics.innerHTML = "You've got me feelin' emotions";
+                };
+                
+                if (fail_video.currentTime > 21 && fail_video.currentTime < 25){
+                        lyrics.innerHTML = "Higher than the heavens above";
+                };
+                
+                if (fail_video.currentTime > 25 && fail_video.currentTime < 30){
+                        lyrics.innerHTML = "I feel good, I feel nice";
+                };
+                
+                if (fail_video.currentTime > 30 && fail_video.currentTime < 34){
+                        lyrics.innerHTML = "I've never felt so satisfied";
+                };
+                
+                if (fail_video.currentTime > 34 && fail_video.currentTime < 38){
+                        lyrics.innerHTML = "I'm in love, I'm alive";
+                };
+                
+                if (fail_video.currentTime > 38 && fail_video.currentTime < 43){
+                        lyrics.innerHTML = "Intoxicated, flyin' high";
+                };
+                
+                if (fail_video.currentTime > 43 && fail_video.currentTime < 47){
+                        lyrics.innerHTML = "Feels like a dream";
+                };
+                
+                if (fail_video.currentTime > 47 && fail_video.currentTime < 51){
+                        lyrics.innerHTML = "When you touch me tenderly";
+                };
+                
+                if (fail_video.currentTime > 51 && fail_video.currentTime < 55){
+                        lyrics.innerHTML = "I don't know if it's real";
+                };
+                
+                if (fail_video.currentTime > 55 && fail_video.currentTime < 60){
+                        lyrics.innerHTML = "But I like the way I feel inside";
+                };
+                
+                if (fail_video.currentTime > 60 && fail_video.currentTime < 63){
+                        lyrics.innerHTML = "You've got me feelin' emotions";
+                };
+                
+                if (fail_video.currentTime > 63 && fail_video.currentTime < 68){
+                        lyrics.innerHTML = "Deeper than I've ever dreamed of";
+                };
+                
+                if (fail_video.currentTime > 68 && fail_video.currentTime < 72){
+                        lyrics.innerHTML = "You've got me feelin' emotions";
+                };
+                
+                if (fail_video.currentTime > 72){
+                        lyrics.innerHTML = "Higher than the heavens above";
+                };
+                
+                if (fail_video.currentTime > 77){
+                        lyrics.innerHTML = "Higher than the heavens above.";
+                };
+                
+                if (fail_video.currentTime > 78){
+                        lyrics.innerHTML = "Higher than the heavens above..";
+                };
+                
+                if (fail_video.currentTime > 79){
+                        lyrics.innerHTML = "Higher than the heavens above...";
+                };
+        }
+        , false);
 </script>
 </body>
 </html>
