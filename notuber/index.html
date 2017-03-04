@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+        <title>Not Uber</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body onload = "initMap()">
+        <div id="map"></div>
+        <script>
+                var map;
+                var myLat = 0;
+                var myLng = 0;
+                var request = new XMLHttpRequest();
+                var myLoc = new google.maps.LatLng(myLat, myLng);
+                var mapStruct = {
+                        zoom = 13,
+                        center = myLoc,
+                };
+                var maker;
+                var infowindow = new google.maps.InfoWindow();
+                function initMap() {
+                        map =
+                        new google.maps.Map(document.getElementByID('map'),
+                                myOptions);
+                        get_myLoc();
+                }
+
+                function get_myLoc() {
+                        if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition
+                                (function(position) {
+                                        myLat = position.coords.latitude;
+                                        myLng = position.coords.longitude;
+                                        renderMap();
+                                });
+                        }
+                        else {
+                                alert("Geolocation is not supported by your
+                                        browser. It's a crying shame...");
+                        }
+                }
+                function renderMap() {
+                        myLoc = new google.maps.LatLng(myLat, myLng);
+
+                        map.panTo(myLoc);
+
+                        marker = new google.maps.Marker({
+                                position: myLoc,
+                                title: "Here I Am"
+                        });
+                        marker.setMap(map);
+
+                        google.maps.event.addListener(marker, 'click',
+                                function(){
+                                        infowindow.setContent(marker.title);
+                                        infowindow.open(map, marker);
+                                });
+                }
+        </script>
+</body>
+
+</html>
