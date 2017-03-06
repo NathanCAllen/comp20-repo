@@ -26,7 +26,7 @@
                                 center: {lat: -34.397, lng: 150.644},
                                 zoom: 8
                         });
-                                get_myLoc();
+                        get_myLoc();
                 }
                 function get_myLoc() {
                         if (navigator.geolocation) {
@@ -51,7 +51,7 @@
 
                         marker = new google.maps.Marker({
                                 position: myLoc,
-                                title: "Here I Am",
+                                title: "ZkLnG6EZ",
                                 icon: image
                         });
                         marker.setMap(map);
@@ -59,6 +59,9 @@
                         infowindow = new google.maps.InfoWindow();
                         infowindow.setContent(marker.title);
                         infowindow.open(map, marker);
+                        marker.addListener('click', function() {
+                                infowindow.open(map, marker);
+                        });
                 }
                 function getUsersInfo() {
                         var request = new XMLHttpRequest();
@@ -74,16 +77,57 @@
                         request.onreadystatechange = function() {
                                 if(request.readyState == 4 &&
                                         request.status == 200) {
-                                        displayOthers(request.responseText);
+                                        displayOthers(
+                                                JSON.parse
+                                                (request.responseText));
                                 }
                         }
                         request.send(params);
                 }
                 function displayOthers(params) {
-                        alert(params.vehicles[0]);
+                        //alert(params.vehicles)
+                        var display;
+                        var vehicles;
+                        var image;
+                        myLoc = new google.maps.LatLng(myLat, myLng);
+                        if (params.passengers != undefined) {
+                                display = params.passengers;
+                                vehicles = false;
+                                image = {
+                                        url: 'passenger_sprite_sheet.jpg',
+                                        size: new google.maps.Size(44, 32),
+                                        origin: new google.maps.Point(0, 128)
+                                };
+                        } else {
+                                display = params.vehicles;
+                                vehicles = true;
+                                image = {
+                                        url: 'black_car.png',
+                                        scaledSize: new google.maps.Size(50, 25)
+                                };
+                        }
+
+                        for (var i = 0; i < display.length; i++) {
+                                var username = display[i].username;
+                                var location = 
+                                        new google.maps.LatLng
+                                               (display[i].lat, display[i].lng);
+                                var distance = google.maps.geometry.spherical.
+                                        computeDistanceBetween(myLoc, location);
+                                marker = new google.maps.Marker({
+                                        position: location,
+                                        title: username,//+"\nDistance: "+distance,
+                                        icon: image
+                                });
+                                marker.setMap(map);
+                                infowindow = new google.maps.InfoWindow();
+                                marker.addListener('click', function() {
+                                       infowindow.open(map, marker);
+                                });
+                        }
                 }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?callback=initMap&libraries=geometry"
                 async defer></script>
 </body>
 </html>
