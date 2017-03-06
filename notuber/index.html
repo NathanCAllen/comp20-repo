@@ -1,32 +1,33 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-        <title>Not Uber</title>
+        <title>Simple Map</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="style.css" type="text/css" />
+        <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
-<body onload = "initMap()">
+<body>
         <div id="map"></div>
         <script>
                 var map;
                 var myLat = 0;
                 var myLng = 0;
-                var request = new XMLHttpRequest();
-                var myLoc = new google.maps.LatLng(myLat, myLng);
-                var mapStruct = {
-                        zoom = 13,
-                        center = myLoc,
-                };
-                var maker;
-                var infowindow = new google.maps.InfoWindow();
-                function initMap() {
-                        map =
-                        new google.maps.Map(document.getElementByID('map'),
-                                myOptions);
-                        get_myLoc();
-                }
 
+                var myLoc;
+                var mapStruct = {
+                        zoom: 13,
+                        center: {lat: 0, lng: 0},
+                };
+                var marker;
+                var infowindow;
+                function initMap() {
+                        map = new google.maps.Map
+                                (document.getElementById('map'),
+                        {
+                                center: {lat: -34.397, lng: 150.644},
+                                zoom: 8
+                        });
+                                get_myLoc();
+                }
                 function get_myLoc() {
                         if (navigator.geolocation) {
                                 navigator.geolocation.getCurrentPosition
@@ -36,29 +37,53 @@
                                         renderMap();
                                 });
                         }
-                        else {
-                                alert("Geolocation is not supported by your
-                                        browser. It's a crying shame...");
-                        }
+                        getUsersInfo();
                 }
                 function renderMap() {
                         myLoc = new google.maps.LatLng(myLat, myLng);
 
                         map.panTo(myLoc);
 
+                        var image = {
+                                url: 'user.png',
+                                scaledSize: new google.maps.Size(25, 25)
+                        };
+
                         marker = new google.maps.Marker({
                                 position: myLoc,
-                                title: "Here I Am"
+                                title: "Here I Am",
+                                icon: image
                         });
                         marker.setMap(map);
 
-                        google.maps.event.addListener(marker, 'click',
-                                function(){
-                                        infowindow.setContent(marker.title);
-                                        infowindow.open(map, marker);
-                                });
+                        infowindow = new google.maps.InfoWindow();
+                        infowindow.setContent(marker.title);
+                        infowindow.open(map, marker);
+                }
+                function getUsersInfo() {
+                        var request = new XMLHttpRequest();
+                        var url =
+                        "https://defense-in-derpth.herokuapp.com/submit";
+                        var params =
+                                "username=ZkLnG6EZ&lat="+myLat+"&lng="+myLng;
+                        var values;
+                        request.open("POST", url, true);
+
+                        request.setRequestHeader("Content-type",
+                                "application/x-www-form-urlencoded");
+                        request.onreadystatechange = function() {
+                                if(request.readyState == 4 &&
+                                        request.status == 200) {
+                                        displayOthers(request.responseText);
+                                }
+                        }
+                        request.send(params);
+                }
+                function displayOthers(params) {
+                        alert(params.vehicles[0]);
                 }
         </script>
+        <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+                async defer></script>
 </body>
-
 </html>

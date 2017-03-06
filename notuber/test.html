@@ -64,7 +64,9 @@
                         var request = new XMLHttpRequest();
                         var url =
                         "https://defense-in-derpth.herokuapp.com/submit";
-                        var params = "username=ZkLnG6EZ&lat=myLat&lng=myLng";
+                        var params =
+                                "username=ZkLnG6EZ&lat="+myLat+"&lng="+myLng;
+                        var values;
                         request.open("POST", url, true);
 
                         request.setRequestHeader("Content-type",
