@@ -11,12 +11,8 @@
                 var map;
                 var myLat = 0;
                 var myLng = 0;
-
                 var myLoc;
-                var mapStruct = {
-                        zoom: 13,
-                        center: {lat: 0, lng: 0},
-                };
+
                 var marker;
                 var infowindow;
                 function initMap() {
@@ -24,7 +20,7 @@
                                 (document.getElementById('map'),
                         {
                                 center: {lat: -34.397, lng: 150.644},
-                                zoom: 8
+                                zoom: 14
                         });
                         get_myLoc();
                 }
@@ -35,9 +31,9 @@
                                         myLat = position.coords.latitude;
                                         myLng = position.coords.longitude;
                                         renderMap();
+                                        getUsersInfo();
                                 });
                         }
-                        getUsersInfo();
                 }
                 function renderMap() {
                         myLoc = new google.maps.LatLng(myLat, myLng);
@@ -45,8 +41,9 @@
                         map.panTo(myLoc);
 
                         var image = {
-                                url: 'user.png',
-                                scaledSize: new google.maps.Size(25, 25)
+                                url: 'user_sprite_sheet.png',
+                                size: new google.maps.Size(17, 30),
+                                origin: new google.maps.Point(85,0)
                         };
 
                         marker = new google.maps.Marker({
@@ -59,7 +56,9 @@
                         infowindow = new google.maps.InfoWindow();
                         infowindow.setContent(marker.title);
                         infowindow.open(map, marker);
-                        marker.addListener('click', function() {
+                        google.maps.event.addListener(marker, 'click', function() {
+                                infowindow.close();
+                                infowindow.setContent(marker.title);
                                 infowindow.open(map, marker);
                         });
                 }
@@ -85,7 +84,6 @@
                         request.send(params);
                 }
                 function displayOthers(params) {
-                        //alert(params.vehicles)
                         var display;
                         var vehicles;
                         var image;
@@ -113,17 +111,21 @@
                                         new google.maps.LatLng
                                                (display[i].lat, display[i].lng);
                                 var distance = google.maps.geometry.spherical.
-                                        computeDistanceBetween(myLoc, location);
+                                        computeDistanceBetween(myLoc, location)
+                                        / 1000 * .621371;
                                 marker = new google.maps.Marker({
                                         position: location,
-                                        title: username,//+"\nDistance: "+distance,
-                                        icon: image
+                                        title: username + "\n" + "Distance: "
+                                                + distance + " miles",
+                                        icon: image,
+                                        map: map
                                 });
-                                marker.setMap(map);
-                                infowindow = new google.maps.InfoWindow();
-                                marker.addListener('click', function() {
-                                       infowindow.open(map, marker);
-                                });
+                                google.maps.event.addListener(marker, 'click',
+                                                function() {
+                                        infowindow.close();
+                                        infowindow.setContent(this.title);
+                                        infowindow.open(map, this);
+                                })
                         }
                 }
         </script>
