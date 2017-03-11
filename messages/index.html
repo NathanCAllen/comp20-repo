@@ -8,10 +8,8 @@
         <script>
                 $.getJSON("https://messagehub.herokuapp.com/messages.json",
                         function(data) {
-                                // alert(data);
                                 var messages = "";
                                 $.each(data, function() {
-                                        // alert(this.content);
                                         messages += "<p>" +
                                                 this.content + " by "
                                                 + this.username +
