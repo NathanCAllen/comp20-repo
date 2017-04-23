@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Security Flaws</title>
+    <title>Notuber Security Flaws</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -67,6 +67,29 @@
             the login system to prevent bots from spamming the service.
             <br><img src="media/ss3.png" alt="Picture of curl command"
                 height=450></li><br>
-        <li></li>
+        <li>Another issue with the login system is that the only requriement
+            for the system to recognize you as a driver is to have one of a
+            specifiecd list of usernames. If a hacker could see this list, they
+            could use one of these usernames and pose as a driver, getting the
+            location of all passengers. Furthermore, they would then show up as
+            drivers to the passengers, so they could pick them up, pretending to
+            be drivers. This issue is located in the server. It is a very
+            serious issue, as it can lead to the loss of privacy of the users.
+            This problem can be fixed by addign another layer of security to the
+            vehicle side of the program, either by better hiding the list of
+            vehicles or by strengthening the vehicle login system.
+            <br><img src="media/ss4.png" alt="Picture of list of vehicles"
+                height=450></li></li>
     </ul></p>
+    <h2>Conclusion</h2>
+    <p>There are, of course, several security flaws in the app, but that is not
+        surprising considering the simple nature of the assignments. Most of the
+        issues above, and a number of future issues, can be solved with a more
+        complex login system. This would, however, also make the app more
+        complicated to use, reducing usability.</p>
+    <h2>References</h2>
+    <p>I used curl to send HTML code to the database. The image I put on the
+        page is from the link
+        "http://www.musicnotes.com/images/productimages/large/mtd/MN0071259.gif"
+        .</p>
 </body>
