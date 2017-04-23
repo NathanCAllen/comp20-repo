@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Security Flaws</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h2>Introduction</h2>
+    <p>Given Juliana Furgala's code and heroku for assignments 2 and 3, I was
+        tasked with finding any and all flaws in the code.</p>
+    <h2>Methodology</h2>
+    <p>I found flaws first by thinking about issues that could plague any
+        implementation of the project, and then by looking at her code directly
+        to find specific flaws in her programs.</p>
+    <h2>Abstract of Findings</h2>
+    <p>I found several simple, but dangerous, security breaches in the client's
+        code. One issue that is easy to exploit and harder to solve is cross
+        site scripting (XSS). This allows a hacker to feed the database
+        executable code that will run when the data is displayed as normal.
+        Instead of showing the string itself, the web browser recognizes this as
+        executable code, and will run it.<br>Another basic issue is that the
+        server is accessible by anyone, not just people using the web page
+        provided. This allows people to say they are at a certain location, even
+        if they are not in that location. This can be used to the detriment of
+        the service, as hackers can insert an infinity of random, falsified
+        passengers.<br>A final flaw in the client's code comes from the
+        simplicity of a set list of vehicle usernames. If a hacker could get
+        ahold of this list, they could pretend to be a driver and log in at
+        various locations, similar to the above point. However, this is
+        significantly more malicious. Logging in as a vehicle shows the full
+        list of passengers, including location. This would allow a hacker to
+        find passengers, then ping the server again saying that there is a
+        vehicle nearby, allowing them to pick up the passengers themselves.</p>
+    <h2>Issues Found:</h2>
+    <p><ul>
+        <li>The structure of the client's program allows someone to set their
+            username as HTML code that will be run when the page is loaded.</li>
+    </ul></p>
+</body>
