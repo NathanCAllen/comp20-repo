@@ -15,7 +15,7 @@
         implementation of the project, and then by looking at her code directly
         to find specific flaws in her programs.</p>
     <h2>Abstract of Findings</h2>
-    <p>I found several simple, but dangerous, security breaches in the client's
+    <p>I found several simple, but dangerous, security breaches in the student's
         code. One issue that is easy to exploit and harder to solve is cross
         site scripting (XSS). This allows a hacker to feed the database
         executable code that will run when the data is displayed as normal.
@@ -25,7 +25,7 @@
         provided. This allows people to say they are at a certain location, even
         if they are not in that location. This can be used to the detriment of
         the service, as hackers can insert an infinity of random, falsified
-        passengers.<br>A final flaw in the client's code comes from the
+        passengers.<br>A final flaw in the student's code comes from the
         simplicity of a set list of vehicle usernames. If a hacker could get
         ahold of this list, they could pretend to be a driver and log in at
         various locations, similar to the above point. However, this is
@@ -35,7 +35,38 @@
         vehicle nearby, allowing them to pick up the passengers themselves.</p>
     <h2>Issues Found:</h2>
     <p><ul>
-        <li>The structure of the client's program allows someone to set their
-            username as HTML code that will be run when the page is loaded.</li>
+        <li>The structure of the student's program allows someone to set their
+            username as HTML code that will be run when the page is loaded. For
+            example, if one were to set their username to a script tag including
+            Javascript code, it would run that code. In testing the student's
+            page, I made the page run smoe Javascript text that caused a
+            popup window that could bring the user to a different page. While
+            this problem is avoidable, I also included other examples of XSS,
+            including style code that turned the screen black and a picture.
+            These hacks mostly affected the passenger page. The severity of this
+            issue varies; while displaying a picture does not break the app,
+            malicious CSS, as described above, can render the page
+            unreadable, and Javascript has the potential to wreak havoc on
+            unsuspecting users. I knew this issue would exist because, as
+            specified in a3, the student did not remove non-letter characters.
+            This problem can be fixed by removing non-letter-or-number
+            characters from usernames as they come in to the server.<br>
+            <img src="media/ss1.png" alt="Picture of Javascript popup"
+                height=450>
+            <img src="media/ss2.png" alt="Picture of black background and
+                image." height=450></li><br>
+        <li>Because of the simplicity of the login system (just a three-variable
+            query string), one does not need to be one the website created in a2
+            to log in to the system. Using curl, one can artificially login,
+            providing a fake username and coordinates. This is an issue found in
+            the server, as it is there that the login is specified. The
+            severity of this issue is rather high; while it seems that it only
+            provides a slight annoyance to the drivers, it could make it
+            impossible for the drivers to find real passengers, rendering the
+            service unusable. This problem can only be sovled by strengthening
+            the login system to prevent bots from spamming the service.
+            <br><img src="media/ss3.png" alt="Picture of curl command"
+                height=450></li><br>
+        <li></li>
     </ul></p>
 </body>
